@@ -1,0 +1,33 @@
+{
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "build active file",
+            "command": "make",
+            "args": [
+                "${fileBasenameNoExtension}"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "presentation": {
+                "reveal": "silent",
+                "revealProblems": "onProblem",
+                "echo": true,
+                "showReuseMessage": false,
+                "clear": true,
+                "close": false,
+                "focus": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "编译当前选中的 .c 文件"
+        }
+    ],
+    "version": "2.0.0"
+}
