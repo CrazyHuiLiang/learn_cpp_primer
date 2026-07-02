@@ -1,2 +1,15 @@
-a.exe
-a.out
+# CMake 构建产物
+build/
+cmake-build-*/
+out/
+
+# Visual Studio 临时文件
+*.user
+.vs/
+
+# 编译生成的可执行文件
+*.exe
+*.out
+*.pdb
+*.ilk
+*.obj

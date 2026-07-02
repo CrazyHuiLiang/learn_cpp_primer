@@ -1,32 +1,34 @@
 {
     "tasks": [
         {
-            "type": "cppbuild",
-            "label": "build active file",
-            "command": "make",
+            "label": "cmake configure",
+            "type": "shell",
+            "command": "cmake",
             "args": [
-                "${fileBasenameNoExtension}"
+                "-B",
+                "${workspaceFolder}/build",
+                "-S",
+                "${workspaceFolder}"
             ],
-            "options": {
-                "cwd": "${workspaceFolder}"
-            },
-            "presentation": {
-                "reveal": "silent",
-                "revealProblems": "onProblem",
-                "echo": true,
-                "showReuseMessage": false,
-                "clear": true,
-                "close": false,
-                "focus": true
-            },
-            "problemMatcher": [
-                "$gcc"
+            "problemMatcher": []
+        },
+        {
+            "label": "cmake build",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build",
+                "${workspaceFolder}/build"
             ],
+            "dependsOn": "cmake configure",
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
-            "detail": "编译当前选中的 .c 文件"
+            "problemMatcher": [
+                "$gcc",
+                "$msCompile"
+            ]
         }
     ],
     "version": "2.0.0"
