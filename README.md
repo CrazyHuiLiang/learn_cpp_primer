@@ -4,19 +4,35 @@
 
 ## 源文件约定
 
-- 源文件可分散放在任意子目录中（如 `01/`、`02/`）。
-- **每个源文件都是一个独立的、包含 `main` 函数的练习程序**，CMake 会自动为每个源文件生成一个可执行目标。
+- 练习源文件按章节放在 `01` / `02` / … / `07` 各自的子目录下。
+- **每个源文件都是一个独立的、包含 `main` 函数的练习程序**，每个 `.cpp` 在所属章节的 `CMakeLists.txt` 中显式登记为一个可执行目标。
 - 源文件名需在整个仓库中**唯一**，建议使用「章节号 + 主题」命名（如 `1.2iostream.cpp`），文件名中不要包含空格。
-- 推荐使用 `.cpp` 扩展名；若使用 `.c`，CMake 也会按 C++ 编译。
-- 新增源文件后，重新执行一次 CMake 配置即可被自动收集（已启用 `CONFIGURE_DEPENDS`）。
+- 推荐使用 `.cpp` 扩展名。
 
 > 在程序返回前添加 `system("pause");` 可防止 Windows 下终端瞬间关闭。
 
 ## CMakeLists.txt 说明
 
-根目录的 [CMakeLists.txt](CMakeLists.txt) 会递归收集所有 `.cpp/.cc/.cxx/.c` 源文件，并以「文件名（不含扩展名）」作为可执行目标名。所有可执行文件统一输出到 `build/bin/` 目录下。
+仓库采用「顶层入口 + 每章节子配置」的两层 CMake 结构：
 
-> 说明：目标名中的点号等非字母数字字符会被替换为下划线（因为 Visual Studio 生成器对含点号的目标名处理有误）。例如 `1.2iostream.cpp` 对应的可执行文件为 `1_2iostream.exe`。
+- 顶层 [CMakeLists.txt](CMakeLists.txt) 只承担项目级设置：C++17、统一输出目录 `build/bin/`、把 `include/` 头目录与跨编译器编译选项集中到一个 INTERFACE 库 `learn_cpp_primer_options` 中，最后用 `add_subdirectory` 串起 `01` ~ `07` 七个章节。
+- 每个章节目录下的 `CMakeLists.txt`（如 [01/CMakeLists.txt](01/CMakeLists.txt)）对该章节内的每个 `.cpp` 显式 `add_executable`，并通过 `target_link_libraries(<name> PRIVATE learn_cpp_primer_options)` 继承公共设置。
+
+**新增练习时**，在所属章节的 `CMakeLists.txt` 中追加两行：
+
+```cmake
+add_executable(<净化目标名> <源文件名>)
+target_link_libraries(<净化目标名> PRIVATE learn_cpp_primer_options)
+```
+
+> 说明：目标名采用「源文件去扩展名 + 非字母数字字符替换为下划线」的规则（Visual Studio 生成器对含点号的目标名处理有误）。例如 `1.2iostream.cpp` 对应的可执行文件为 `1_2iostream.exe`，所有章节的可执行文件统一输出到 `build/bin/` 目录下。
+
+也可以只构建单个章节：
+
+```bash
+cmake -B build -S 01        # 只构建第 1 章
+cmake --build build
+```
 
 ## 在 Visual Studio 中使用
 
