@@ -16,8 +16,9 @@
 
 int main()
 {
+    std::cout << "请输入多个数字，在Windows中输入 Ctrl + Z 后回车，Unix 中输入 Ctrl + D结束输入" << std::endl;
     int sum = 0, value = 0;
-    while (std::cin >> value)     // 不断读取，直到 EOF 或遇到非整数输入
+    while (std::cin >> value)     // 不断读取数字到 value 变量，直到 EOF 或遇到非整数输入
         sum += value;
     std::cout << "Sum is " << sum << std::endl;
     return 0;

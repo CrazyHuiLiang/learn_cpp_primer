@@ -23,11 +23,11 @@ target_link_libraries(1_4_3sum_unknown PRIVATE learn_cpp_primer_options)
 add_executable(1_4_4count_dup      1.4.4count_dup.cpp)
 target_link_libraries(1_4_4count_dup PRIVATE learn_cpp_primer_options)
 
-add_executable(1_5_1sales_add      1.5.1sales_add.cpp)
-target_link_libraries(1_5_1sales_add PRIVATE learn_cpp_primer_options)
-
-add_executable(1_5_1sales_read     1.5.1sales_read.cpp)
+add_executable(1_5_1sales_read     "1.5.1.1sales_read.cpp")
 target_link_libraries(1_5_1sales_read PRIVATE learn_cpp_primer_options)
+
+add_executable(1_5_1sales_add      "1.5.1.2sales_add.cpp")
+target_link_libraries(1_5_1sales_add PRIVATE learn_cpp_primer_options)
 
 add_executable(1_5_2sales_member   1.5.2sales_member.cpp)
 target_link_libraries(1_5_2sales_member PRIVATE learn_cpp_primer_options)

@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------------------
 //  C++ 用「流(stream)」来表达输入输出：
 //    - std::cin   标准输入   （键盘）
+
 //    - std::cout  标准输出   （屏幕）
 //    - std::cerr  标准错误   （输出警告/错误，不缓冲）
 //    - std::clog  标准日志   （输出日志信息，可能缓冲）
@@ -16,10 +17,19 @@
 
 int main()
 {
+    std::cout << "计算两个数的和" << std::endl;
     std::cout << "Enter two numbers:" << std::endl;
     int v1 = 0, v2 = 0;          // 初始化为 0 是好习惯
+
+    // cin 语句的返回值仍是 cin，所以多次读入（多条 >> 语句）可以写成一行
     std::cin >> v1 >> v2;        // >> 是输入运算符：从 cin 读取数据存入变量
+
+    // cout 语句的返回值仍是 cout，所以多个输出语句可以写成一行
     std::cout << "The sum of " << v1 << " and " << v2
               << " is " << v1 + v2 << std::endl;
+	std::clog << "The sum of " << v1 << " and " << v2
+		<< " is " << v1 + v2 << std::endl;
+	std::cerr << "The sum of " << v1 << " and " << v2
+		<< " is " << v1 + v2 << std::endl;
     return 0;
 }
