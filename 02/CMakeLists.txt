@@ -8,16 +8,16 @@ target_link_libraries(2_1arithmetic_types PRIVATE learn_cpp_primer_options)
 add_executable(2_2init_forms             2.2init_forms.cpp)
 target_link_libraries(2_2init_forms PRIVATE learn_cpp_primer_options)
 
-add_executable(2_3pointers               2.3pointers.cpp)
-target_link_libraries(2_3pointers PRIVATE learn_cpp_primer_options)
-
-add_executable(2_3references             2.3references.cpp)
+add_executable(2_3references             "2.3.1references.cpp")
 target_link_libraries(2_3references PRIVATE learn_cpp_primer_options)
+
+add_executable(2_3pointers               "2.3.2pointers.cpp")
+target_link_libraries(2_3pointers PRIVATE learn_cpp_primer_options)
 
 add_executable(2_4const                  2.4const.cpp)
 target_link_libraries(2_4const PRIVATE learn_cpp_primer_options)
 
-add_executable(2_4constexpr              2.4constexpr.cpp)
+add_executable(2_4constexpr              "2.4constexpr.cpp")
 target_link_libraries(2_4constexpr PRIVATE learn_cpp_primer_options)
 
 add_executable(2_5aliases_auto_decltype  2.5aliases_auto_decltype.cpp)

@@ -70,5 +70,24 @@ int main()
     **pp = 88;             // 等价于 val = 88
     std::cout << "after **pp=88: val = " << val << "\n";
 
+    // 指针是对象，所以存在对指针的引用
+    int *&refp = pval; // pval 是一个int的指针，refp 是一个对指针 pval 的引用
+    // 从右向左阅读定义，离变量名最近的符号对变量有最直接的影响，因此 refp2 是一个引用，引用的类型是 int **
+    int **&refp2 = pp; // pp 是一个指向指针的指针，refp2 是一个对指针 pp 的引用
+    std::cout << "\n指针是对象，所以存在对指针的引用\n"
+        << "pval: " << pval << "\n"
+        << "refp:" << refp << "\n"
+        << "*pval:" << *pval << "\n"
+        << "*refp:" << *refp << "\n"
+
+        << "pp: " << pp << "\n"
+        << "refp2:" << refp2 << "\n"
+        << "*pp:" << *pp << "\n"
+        << "*refp2:" << *refp2 << "\n"
+        << "**pp:" << **pp << "\n"
+        << "**refp2:" << **refp2 << "\n"
+
+        << std::endl;
+
     return 0;
 }

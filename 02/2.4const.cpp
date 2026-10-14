@@ -65,6 +65,7 @@ int main()
 
     const int *lp = &v;        // 底层 const：所指对象被当作 const（p 本身可改）
     int *const tp = &v;        // 顶层 const：指针本身是 const（所指对象可改）
+    // 从右向左阅读，离 bp 近的是 const，所以 bp 是常量，剩余声明符表明 bp 是指针，指向 const int，指向的也是常量
     const int *const bp = &v;  // 既有顶层（指针本身）又有底层（所指对象）
 
     std::cout << "顶层/底层 const 均可正常使用：\n";
