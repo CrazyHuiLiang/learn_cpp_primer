@@ -51,7 +51,7 @@ private:
 class HasCtor
 {
 public:
-    // 一旦定义了这个构造函数，编译器就不再合成默认构造 HasCtor()���
+    // 一旦定义了这个构造函数，编译器就不再合成默认构造 HasCtor()
     HasCtor(int x) : x_(x) {}
     int get() const { return x_; }
 private:

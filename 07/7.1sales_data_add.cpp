@@ -24,7 +24,7 @@ int main()
 {
     Sales_data item1, item2;
 
-    std::cout << "请��入两条销售记录（每行：ISBN 数量 单价）：" << std::endl;
+    std::cout << "请输入两条销售记录（每行：ISBN 数量 单价）：" << std::endl;
     read(std::cin, item1);
     read(std::cin, item2);
 
