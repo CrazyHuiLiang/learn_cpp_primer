@@ -19,6 +19,11 @@ target_link_libraries(13_1_5default PRIVATE learn_cpp_primer_options)
 
 
 
+add_executable(13_2_1deep_copy                   13.2.1deep_copy.cpp)
+target_link_libraries(13_2_1deep_copy PRIVATE learn_cpp_primer_options)
+
+add_executable(13_2_2shallow_copy                   13.2.2shallow_copy.cpp)
+target_link_libraries(13_2_2shallow_copy PRIVATE learn_cpp_primer_options)
 
 
 
