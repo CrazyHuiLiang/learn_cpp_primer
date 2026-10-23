@@ -2,20 +2,23 @@
 # 目标命名规则：源文件名去掉最后一个扩展名后，所有非字母数字字符替换为下划线
 #（Visual Studio 生成器对含点号的目标名处理有误）。
 
-add_executable(6_1pass_by_value          6.1pass_by_value.cpp)
-target_link_libraries(6_1pass_by_value PRIVATE learn_cpp_primer_options)
+add_executable(6_2_1pass_by_value          6.2.1pass_by_value.cpp)
+target_link_libraries(6_2_1pass_by_value PRIVATE learn_cpp_primer_options)
 
-add_executable(6_2array_params           6.2array_params.cpp)
-target_link_libraries(6_2array_params PRIVATE learn_cpp_primer_options)
+add_executable(6_2_2pass_by_reference      6.2.2pass_by_reference.cpp)
+target_link_libraries(6_2_2pass_by_reference PRIVATE learn_cpp_primer_options)
 
-add_executable(6_2const_reference        6.2const_reference.cpp)
-target_link_libraries(6_2const_reference PRIVATE learn_cpp_primer_options)
+add_executable(6_2_3const_reference        6.2.3const_reference.cpp)
+target_link_libraries(6_2_3const_reference PRIVATE learn_cpp_primer_options)
 
-add_executable(6_2main_args              6.2main_args.cpp)
-target_link_libraries(6_2main_args PRIVATE learn_cpp_primer_options)
+add_executable(6_2_4array_params           6.2.4array_params.cpp)
+target_link_libraries(6_2_4array_params PRIVATE learn_cpp_primer_options)
 
-add_executable(6_2pass_by_reference      6.2pass_by_reference.cpp)
-target_link_libraries(6_2pass_by_reference PRIVATE learn_cpp_primer_options)
+add_executable(6_2_5main_args              6.2.5main_args.cpp)
+target_link_libraries(6_2_5main_args PRIVATE learn_cpp_primer_options)
+
+add_executable(6_2_6initializer_list              6.2.6initializer_list.cpp)
+target_link_libraries(6_2_6initializer_list PRIVATE learn_cpp_primer_options)
 
 add_executable(6_3recursion              6.3recursion.cpp)
 target_link_libraries(6_3recursion PRIVATE learn_cpp_primer_options)
