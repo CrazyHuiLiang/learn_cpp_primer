@@ -20,3 +20,5 @@ target_link_libraries(12_1_6weak_ptr PRIVATE learn_cpp_primer_options)
 add_executable(12_2_1new_array             12.2.1new_array.cpp)
 target_link_libraries(12_2_1new_array PRIVATE learn_cpp_primer_options)
 
+add_executable(12_2_2allocator             12.2.2allocator.cpp)
+target_link_libraries(12_2_2allocator PRIVATE learn_cpp_primer_options)
