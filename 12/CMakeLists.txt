@@ -14,3 +14,9 @@ target_link_libraries(12_1_3shared_ptr_with_new PRIVATE learn_cpp_primer_options
 add_executable(12_1_5unique_ptr             12.1.5unique_ptr.cpp)
 target_link_libraries(12_1_5unique_ptr PRIVATE learn_cpp_primer_options)
 
+add_executable(12_1_6weak_ptr             12.1.6weak_ptr.cpp)
+target_link_libraries(12_1_6weak_ptr PRIVATE learn_cpp_primer_options)
+
+add_executable(12_2_1new_array             12.2.1new_array.cpp)
+target_link_libraries(12_2_1new_array PRIVATE learn_cpp_primer_options)
+
