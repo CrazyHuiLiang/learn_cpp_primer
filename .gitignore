@@ -1,5 +1,6 @@
 .claude
 .codebuddy/
+.idea
 
 # CMake 构建产物
 build/
