@@ -1,10 +1,12 @@
 #include <iostream>
 #include <string>
 #include <memory>
+#include <vector>
 
 using std::cout;
 using std::endl;
 using std::string;
+using std::vector;
 using std::shared_ptr;
 using std::unique_ptr;
 using std::weak_ptr;
@@ -39,6 +41,21 @@ int main() {
 	}
 	// 内存不再使用后可以归还给系统,传递给 deallocate 的大小参数必须与 调用 allocated 分配时提供的大小参数一样
 	alloc.deallocate(partial, n);
+
+
+
+	// 标准库还为 allocator 类定义了两个伴随算法，可以在未初始化内存中拷贝或填充对象
+	allocator<int> alloci;
+	auto const partiai = alloci.allocate(20); // 分配 20 个未初始化的 int
+	vector<int> vi = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+	auto q1 = std::uninitialized_copy(vi.begin(), vi.begin() + 5, partiai); // 使用 vi 的前5个元素填充 partiai 前五个位置，返回填充后的下一位置迭代器
+	auto q2 = std::uninitialized_copy_n(vi.begin() + 5, 5, q1);             // 从 vi 的第5个位置后的元素，拿出5个跳充q1后面的位置
+	auto q3 = std::uninitialized_fill_n(q2, 5, 43);						    // 向 q2 位置开始，向后使用值 43 填充5个位置
+	std::uninitialized_fill(q3, q3 + 5, 53);								// 从 q3 位置开始，填充到 q3 + 5 的位置，值填充为 5，注意，这个函数没有返回值
+	for (int i = 0; i < 20; i++) {
+		cout << *(partiai+i) << endl;
+	}
 
 	return 0;
 }
