@@ -25,10 +25,14 @@ target_link_libraries(13_2_1deep_copy PRIVATE learn_cpp_primer_options)
 add_executable(13_2_2shallow_copy                   13.2.2shallow_copy.cpp)
 target_link_libraries(13_2_2shallow_copy PRIVATE learn_cpp_primer_options)
 
+
+
 add_executable(13_3swap                   13.3swap.cpp)
 target_link_libraries(13_3swap PRIVATE learn_cpp_primer_options)
 
-add_executable(13_4management                   13.4management.cpp)
+
+
+add_executable(13_4management                   13.4management.cpp Message.cpp Folder.cpp)
 target_link_libraries(13_4management PRIVATE learn_cpp_primer_options)
 
 

@@ -134,6 +134,34 @@ string nines = string(100, '9');
 
 ## 13.4 拷贝控制示例
 
+资源管理并不是一个类需要定义自己的拷贝控制成员的唯一原因，一些类还需要拷贝控制成员的协助来进行簿记工作或其他操作。
+
+本节的 Message / Folder 正是这样的例子：两个类不管理任何动态内存，但对象之间通过裸指针互相"登记"——每个 Message 保存它所在 Folder 的指针集合 `set<Folder*>`，每个 Folder 保存它所含 Message 的指针集合 `set<Message*>`。对这样的类，拷贝不再是"复制数据"，而是"维护关系"：
+
+- 合成的拷贝构造是浅拷贝：只逐元素复制 `set<Folder*>`，副本不会被任何 Folder"认识"，两侧簿记即被破坏。因此 Message 必须自定义拷贝构造、拷贝赋值和析构函数。
+
+一套可复用的标准骨架：
+
+- 拷贝构造：逐成员拷贝 + `add_to_Folders(m)`——把 this 登记进 m 所在的每个 Folder
+- 拷贝赋值：`remove_from_Folders()`（注销旧关系）→ 逐成员拷贝 → `add_to_Folders(rhs)`（登记新关系）
+- 析构函数：`remove_from_Folders()`
+- 两个私有工具函数各被复用两次；赋值中"先注销后登记"的顺序天然覆盖自赋值。13.5 节的 StrVec 还会再用这个骨架。
+
+类-specific 的 swap：
+
+- 通用 swap 只交换成员的值；但这里两侧 Folder 中持有指向这两个 Message 的指针，交换后必须逐一修正 Folder（先 remMsg，交换后再 addMsg）
+- 当对象被外部按指针引用时，swap 必须"通知所有引用者"
+
+封装分层：
+
+- addMsg/remMsg 是单边的底层操作，单独调用就会破坏两侧一致性，所以设为 private，通过 friend 只授权给 Message 和 swap
+- 公开接口只给能同时维护两侧一致性的 save/remove——API 应只暴露维持不变量的操作
+
+生命周期隐患：
+
+- Folder 类没有析构函数，正确性依赖"Message 先于 Folder 销毁"的约定（main 中 Folder 声明在 Message 之前，析构是构造的逆序）
+- 彻底的解法是 Folder 析构时把自己从每条 Message 的 folders 中移除（练习 13.19）；练习 13.18 则要求补上 Folder 的拷贝构造与拷贝赋值——默认拷贝同样是浅拷贝，副本 Folder 不会被登记进各 Message
+
 ## 13.5 动态内存管理类
 
 ## 13.6 对象移动
