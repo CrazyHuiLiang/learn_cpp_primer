@@ -73,6 +73,62 @@ tie 有两个重载的版本
 
 ## 8.2 文件输入输出
 
+- ifstream 从一个给定文件读取数据
+- ofstream 从一个给定文件写入数据
+- fstream  可以读写给定文件
+
+我们可以用 IO 运算符 (`<<` 和 `>>`) 来读写文件
+可以用 getline (定义在 string 头文件)从一个 ifstream 读取数据
+
+fstream 中定义的类型还增加了一些新的成员
+
+- 创建实例
+	- fstream fstrm; 创建一个实例，没有绑定文件流
+	- fstream fstrm(s); 创建一个实例，绑定名字为 s 的文件
+	- fstream fstrm(s, mode); 创建一个实例，绑定名字为 s 的文件，按指定 mode 打开文件
+- 打开关闭文件
+	- fstrm.open(s) 打开名为 s 的文件
+	- fstrm.open(s, mode) 按指定 mode 打开名为 s 的文件
+	- fstrm.close() 关闭绑定的文件
+	- fstrm.is_open() 是否成功打开且尚未关闭
+
+如果调用 open 失败，failbit 会被置位，进行 open 是否成功的检测通常是一个好习惯；
+对一个已经打开的文件流，再次调用 open 会失败，并导致 failbit 被置位；
+为了将文件流关联到另一个文件，必须首先关闭已经关联的文件，一旦文件成功关闭，我们可以打开新的文件。
+当一个 fstream 对象离开其作用域时，对象被销毁，close 会自动调用，与之关联的文件会自动关闭。
+
+
+### 8.2.1 编码约定：为什么这个目标要单独设执行字符集
+
+`8.2fstream.cpp` 是本仓库里唯一一个在编译期显式指定 **UTF-8 执行字符集**的目标。
+
+顶层 `CMakeLists.txt` 只给了 MSVC 的 `/source-charset:utf-8`，**没有**给 `/execution-charset`，两者含义不同：
+
+- `/source-charset:utf-8` —— 源文件按 UTF-8 **读取**，中文注释和字面量能正确解析
+- 执行字符集未指定 —— 字面量按**系统 ACP**（中文 Windows 即 GBK/936）**写入** exe
+
+这是刻意的设计：让输出匹配 VS 调试时弹出的传统 cmd 控制台（GBK）。其他章节都沿用这套约定。
+
+而本练习调用了 `SetConsoleOutputCP(CP_UTF8)`，声明控制台按 UTF-8 解码。若不配套修改执行字符集，就会变成 **exe 发出 GBK 字节、控制台按 UTF-8 解码**，所有硬编码中文字面量乱码。因此 `08/CMakeLists.txt` 单独为它加了 `/execution-charset:utf-8`。
+
+这两处设置是成对出现的，删掉任何一边都会重新乱码：
+
+| 位置 | 设置 | 作用 |
+| --- | --- | --- |
+| `08/CMakeLists.txt` | `/execution-charset:utf-8` | 字面量以 UTF-8 写入 exe |
+| `8.2fstream.cpp` | `SetConsoleOutputCP(CP_UTF8)` | 控制台按 UTF-8 解码 |
+
+`SetConsoleOutputCP` 必须放在 `main` 的**第一条语句**、所有输出之前。否则先于它执行的那句错误提示（`请输入文件路径!`）会以 UTF-8 字节发给还是 GBK 的控制台，反而乱码。
+
+> 这里用 `/execution-charset:utf-8` 而不是 `/utf-8`：后者等价于同时设置 source-charset，会与顶层已有的 `/source-charset:utf-8` 重复，触发 MSVC 的 D9025 覆盖警告。
+
+#### 已知代价
+
+程序把从文件读出的内容**原样透传**到控制台，不做编码转换。控制台切到 UTF-8 之后，**GBK/ANSI 编码的输入文件，其内容会显示乱码**，只有 UTF-8 或纯 ASCII 的输入文件才正常。这是选定方案的固有取舍，不是 bug。
+
+写入 `.copy` 文件的内容同样是原始字节透传，不经过控制台代码页，因此输出文件始终与输入文件一致，不受影响。
+
+
 ## 8.3 string 流
 
 
