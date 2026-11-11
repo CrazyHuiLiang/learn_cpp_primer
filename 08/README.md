@@ -126,9 +126,20 @@ fstream 中定义的类型还增加了一些新的成员
 
 程序把从文件读出的内容**原样透传**到控制台，不做编码转换。控制台切到 UTF-8 之后，**GBK/ANSI 编码的输入文件，其内容会显示乱码**，只有 UTF-8 或纯 ASCII 的输入文件才正常。这是选定方案的固有取舍，不是 bug。
 
-写入 `.copy` 文件的内容同样是原始字节透传，不经过控制台代码页，因此输出文件始终与输入文件一致，不受影响。
+写入 `.copy` 文件的内容同样是原始字节透传，不经过控制台代码页，因此不受本次编码设置影响。（注意 `.copy` 并不与输入文件逐字节相同——程序是用 `>>` 按空白切词后每词一行重新写出的，原有的换行与缩进结构不会保留。）
 
 
 ## 8.3 string 流
 
+sstream 头文件定义了三个类型来支持内存IO
 
+- istringstream 从 string 读取数据
+- ostringstream 向 string 写入数据
+- stringstream 既可以从 string 读取数据，也可以向 string 写入数据
+
+头文件 sstream 中定义的类型都继承自我们已经使用过的 iostream 头文件中定义的类型，此外还增加了一些成员来管理与流相关联的 string。
+
+- sstream strm; strm 是一个未绑定的 string 的 stringstream 对象
+- sstream strm(s); 保存了 string s的一个拷贝
+- strm.str() 返回 strm 所保存的 string 的拷贝
+- strm.str(s) 将 string s 拷贝到 strm 中

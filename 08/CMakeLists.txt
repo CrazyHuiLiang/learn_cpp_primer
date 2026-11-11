@@ -17,3 +17,6 @@ target_link_libraries(8_2fstream PRIVATE learn_cpp_primer_options)
 target_compile_options(8_2fstream PRIVATE
     $<$<CXX_COMPILER_ID:MSVC>:/execution-charset:utf-8>
 )
+
+add_executable(8_3sstream             8.3sstream.cpp)
+target_link_libraries(8_3sstream PRIVATE learn_cpp_primer_options)
