@@ -36,5 +36,6 @@ add_executable(13_4management                   13.4management.cpp Message.cpp F
 target_link_libraries(13_4management PRIVATE learn_cpp_primer_options)
 
 
-
+add_executable(13_5str_blob                   13.5str_blob.cpp)
+target_link_libraries(13_5str_blob PRIVATE learn_cpp_primer_options)
 
